@@ -5,6 +5,7 @@
 #include "CoreMinimal.h"
 #include "GameFramework/Pawn.h"
 #include "PlayerPawnBase.generated.h"
+#include "Components/InputComponent.h"
 
 class UCameraComponent;
 class ASnakeBase;
@@ -35,4 +36,8 @@ public:
 	// Called to bind functionality to input
 	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
 	void CreateSnakeActor();
+	UFUNCTION()
+		void HandlePlayerVerticalInput(float value);
+	UFUNCTION()
+		void HandlePlayerHorizontalInput(float value);
 };
