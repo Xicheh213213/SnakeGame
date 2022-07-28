@@ -44,7 +44,7 @@ void ASnakeBase::AddSnakeElement(int ElementsNum)
 void ASnakeBase::Move()
 {
 	FVector MovementVector(ForceInitToZero);
-	float MovementSpeed = ElementSize;
+	float MovementSpeed1 = ElementSize;
 	switch(LastMoveDirection)
 	{
 	case EMovementDirection::UP:

@@ -2,10 +2,11 @@
 
 #pragma once
 
+#include "Components/InputComponent.h"
 #include "CoreMinimal.h"
 #include "GameFramework/Pawn.h"
 #include "PlayerPawnBase.generated.h"
-#include "Components/InputComponent.h"
+
 
 class UCameraComponent;
 class ASnakeBase;
