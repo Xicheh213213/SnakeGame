@@ -19,7 +19,7 @@ void ASnakeBase::BeginPlay()
 {
 	Super::BeginPlay();
 	SetActorTickInterval(MovementSpeed);
-	AddSnakeElement(4);
+	AddSnakeElement(5);
 	
 }
 
@@ -37,14 +37,20 @@ void ASnakeBase::AddSnakeElement(int ElementsNum)
 		FVector NewLocation(SnakeElements.Num() * ElementSize, 0, 0);
 		FTransform NewTransform(NewLocation);
 		ASnakeElementBase* NewSnakeElem = GetWorld()->SpawnActor<ASnakeElementBase>(SnakeElementClass, NewTransform);
-		SnakeElements.Add(NewSnakeElem);
+		int32 ElemIndex = SnakeElements.Add(NewSnakeElem);
+		if(ElemIndex==0)
+		{
+			NewSnakeElem->SetFirstElementType();
+		}
+	
+
 	}
 }
 
 void ASnakeBase::Move()
 {
 	FVector MovementVector(ForceInitToZero);
-	float MovementSpeed1 = ElementSize;
+	float MovementSpeed = ElementSize;
 	switch(LastMoveDirection)
 	{
 	case EMovementDirection::UP:
