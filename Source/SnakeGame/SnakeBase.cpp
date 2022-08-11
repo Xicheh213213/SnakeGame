@@ -6,7 +6,7 @@
 // Sets default values
 ASnakeBase::ASnakeBase()
 {
- 	// Set this actor to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
+	// Set this actor to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
 	PrimaryActorTick.bCanEverTick = true;
 	ElementSize = 100.f;
 	MovementSpeed = 10.f;
@@ -20,7 +20,7 @@ void ASnakeBase::BeginPlay()
 	Super::BeginPlay();
 	SetActorTickInterval(MovementSpeed);
 	AddSnakeElement(5);
-	
+
 }
 
 // Called every frame
@@ -30,6 +30,7 @@ void ASnakeBase::Tick(float DeltaTime)
 	Move();
 }
 
+
 void ASnakeBase::AddSnakeElement(int ElementsNum)
 {
 	for (int i = 0; i < ElementsNum; ++i)
@@ -38,20 +39,22 @@ void ASnakeBase::AddSnakeElement(int ElementsNum)
 		FTransform NewTransform(NewLocation);
 		ASnakeElementBase* NewSnakeElem = GetWorld()->SpawnActor<ASnakeElementBase>(SnakeElementClass, NewTransform);
 		int32 ElemIndex = SnakeElements.Add(NewSnakeElem);
-		if(ElemIndex==0)
+		if (ElemIndex == 0)
 		{
 			NewSnakeElem->SetFirstElementType();
 		}
-	
+
 
 	}
+
 }
 
 void ASnakeBase::Move()
 {
 	FVector MovementVector(ForceInitToZero);
-	float MovementSpeed = ElementSize;
-	switch(LastMoveDirection)
+	MovementSpeed = ElementSize;
+
+	switch (LastMoveDirection)
 	{
 	case EMovementDirection::UP:
 		MovementVector.X += MovementSpeed;
@@ -63,17 +66,18 @@ void ASnakeBase::Move()
 		MovementVector.Y += MovementSpeed;
 		break;
 	case EMovementDirection::RIGTH:
-		MovementVector.Y -= MovementSpeed; 
+		MovementVector.Y -= MovementSpeed;
 		break;
 	}
-	
-	for(int i = SnakeElements.Num() - 1; i > 0; i--)
+	//AddActorWorldOffset(MovementVector);
+
+	for (int i = SnakeElements.Num() - 1; i > 0; i--)
 	{
 		auto CurrentElement = SnakeElements[i];
 		auto PrevElement = SnakeElements[i - 1];
 		FVector PrevLocation = PrevElement->GetActorLocation();
 		CurrentElement->SetActorLocation(PrevLocation);
 	}
+
 	SnakeElements[0]->AddActorWorldOffset(MovementVector);
 }
-

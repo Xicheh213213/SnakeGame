@@ -2,11 +2,9 @@
 
 #pragma once
 
-#include "Components/InputComponent.h"
 #include "CoreMinimal.h"
 #include "GameFramework/Pawn.h"
 #include "PlayerPawnBase.generated.h"
-
 
 class UCameraComponent;
 class ASnakeBase;
@@ -22,21 +20,28 @@ public:
 
 	UPROPERTY(BlueprintReadWrite)
 		UCameraComponent* PawnCamera;
-	UPROPERTY(BlueprintReadWrite)
+
+	UPROPERTY(BluePrintReadWrite)
 		ASnakeBase* SnakeActor;
+
 	UPROPERTY(EditDefaultsOnly)
 		TSubclassOf<ASnakeBase> SnakeActorClass;
+
 protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
 
-public:	
+public:
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
 
 	// Called to bind functionality to input
 	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
+
+
 	void CreateSnakeActor();
+
+
 	UFUNCTION()
 		void HandlePlayerVerticalInput(float value);
 	UFUNCTION()

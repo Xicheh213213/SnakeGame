@@ -12,22 +12,24 @@ UCLASS()
 class SNAKEGAME_API ASnakeElementBase : public AActor
 {
 	GENERATED_BODY()
-	
-public:	
+
+public:
 	// Sets default values for this actor's properties
 	ASnakeElementBase();
+
 	UPROPERTY(VisibleAnyWhere, BlueprintReadOnly)
-	UStaticMeshComponent* MeshComponent;
+		UStaticMeshComponent* MeshComponent;
+
 protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
 
-public:	
+public:
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
+
 	UFUNCTION(BlueprintNativeEvent)
-	void SetFirstElementType();
-	void SetFirstElementType_Implementation(); 
-	
+		void SetFirstElementType();
+	void SetFirstElementType_Implementation();
 
 };

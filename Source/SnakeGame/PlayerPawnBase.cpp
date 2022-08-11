@@ -2,16 +2,24 @@
 
 
 #include "PlayerPawnBase.h"
-#include "Engine/Classes/Camera/CameraComponent.h" 
+#include "Engine/Classes/Camera/CameraComponent.h"
 #include "SnakeBase.h"
-
+#include "Components/InputComponent.h"
 // Sets default values
+
+
+
 APlayerPawnBase::APlayerPawnBase()
 {
- 	// Set this pawn to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
+	// Set this pawn to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
 	PrimaryActorTick.bCanEverTick = true;
+
+
 	PawnCamera = CreateDefaultSubobject<UCameraComponent>(TEXT("PawnCamera"));
 	RootComponent = PawnCamera;
+
+
+
 }
 
 // Called when the game starts or when spawned
@@ -41,13 +49,14 @@ void APlayerPawnBase::SetupPlayerInputComponent(UInputComponent* PlayerInputComp
 void APlayerPawnBase::CreateSnakeActor()
 {
 	SnakeActor = GetWorld()->SpawnActor<ASnakeBase>(SnakeActorClass, FTransform());
+
 }
 
 void APlayerPawnBase::HandlePlayerVerticalInput(float value)
 {
-	if(IsValid(SnakeActor))
+	if (IsValid(SnakeActor))
 	{
-		if(value > 0 && SnakeActor->LastMoveDirection!=EMovementDirection::DOWN)
+		if (value > 0 && SnakeActor->LastMoveDirection != EMovementDirection::DOWN)
 		{
 			SnakeActor->LastMoveDirection = EMovementDirection::UP;
 		}
@@ -60,16 +69,13 @@ void APlayerPawnBase::HandlePlayerVerticalInput(float value)
 
 void APlayerPawnBase::HandlePlayerHorizontalInput(float value)
 {
-	if (IsValid(SnakeActor))
+	if (value > 0 && SnakeActor->LastMoveDirection != EMovementDirection::LEFT)
 	{
-		if (value > 0 && SnakeActor->LastMoveDirection != EMovementDirection::LEFT)
-		{
-			SnakeActor->LastMoveDirection = EMovementDirection::RIGTH;
-		}
-		else if (value < 0 && SnakeActor->LastMoveDirection != EMovementDirection::RIGTH)
-		{
-			SnakeActor->LastMoveDirection = EMovementDirection::LEFT;
-		}
+		SnakeActor->LastMoveDirection = EMovementDirection::RIGTH;
+	}
+	else if (value < 0 && SnakeActor->LastMoveDirection != EMovementDirection::RIGTH)
+	{
+		SnakeActor->LastMoveDirection = EMovementDirection::LEFT;
 	}
 }
 
