@@ -99,6 +99,7 @@ void ASnakeBase::SnakeElementOverlap(ASnakeElementBase* OverlappedElement, AActo
 			InteractableInterface->Interact(this, bIsFirst);
 		}
 	}
+
 }
 
 
