@@ -32,8 +32,14 @@ void AFood::Interact(AActor* Interactor, bool bIsHead)
 		if(IsValid(Snake))
 		{
 			Snake->AddSnakeElement();
-			this->Destroy();
+			this->RespawnFood();
 		}
 	}
+}
+
+void AFood::RespawnFood()
+{
+	FVector2D calculatedCords = FVector2D(FMath::RandRange(startCoords.X, endCoords.X), FMath::RandRange(startCoords.Y, endCoords.Y));
+	this->SetActorLocation(FVector(calculatedCords.X, calculatedCords.Y, GetActorLocation().Z));
 }
 

@@ -25,4 +25,10 @@ public:
 	virtual void Tick(float DeltaTime) override;
 
 	virtual void Interact(AActor* Interactor, bool bIsHead) override;
+	void RespawnFood();
+	UPROPERTY(BlueprintReadWrite, EditAnyWhere)
+		FVector2D startCoords;
+	UPROPERTY(BlueprintReadWrite, EditAnyWhere)
+		FVector2D endCoords;
+
 };
